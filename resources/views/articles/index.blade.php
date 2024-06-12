@@ -14,11 +14,12 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to Technology Digital</h1>
+    <h1>Welcome to Blog Digital</h1>
     <div class="article">
-        <h2>Gaming</h2>
-        <p>Teknologi ini merupakan hasil karya itu sendiri. Tidak di pungkiri bahwa teknologi menyertai dunia games. Games semakin digemari oleh para remaja
-            tertama dikalangan masyarakat indonesia.
+        <h2>Blog</h2>
+        <p>Teknologi ini merupakan hasil karya itu sendiri. Tidak di pungkiri bahwa teknologi menyertai dunia Blog. Salah satunya adalah handphone yang semakin digemari oleh
+            masyarakat dunia. Handphone memiliki kelas kelas nya yaitu kelas low end, mid-range, dan flagship. low end merupakan hp kelas rendah yang memilki budget di bawah 3 juta,
+            mid-range adalah hp dengan kelas
         </p>
     </div>
 </body>
