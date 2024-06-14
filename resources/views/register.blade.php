@@ -34,7 +34,7 @@
             <label for="password_confirmation">Password Confirm:</label>
             <input type="password" id="password_confirmation" name="password_confirmation">
         </div>
-        <button type="button" onclick="window.location.href='/Tech'" class="link-button">Register</button>
+        <button type="button" onclick="window.location.href='/login'" class="link-button">Register</button>
     </form>
 </body>
 </html>

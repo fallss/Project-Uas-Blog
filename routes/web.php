@@ -17,6 +17,10 @@ Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [loginController::class, 'login']);
 Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/Tech', [ArticleController::class, 'index'])->name('tech.index'); // Route untuk halaman /Tech
+});
+
 Route::get('/encrypt', function() {
     $encrypted = Crypt::encryptString('Sensitive data');
     return response()->json(['encrypted' => $encrypted]);
@@ -36,5 +40,7 @@ Route::get('/register', [UserController::class, 'showRegistrationForm']);
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/Tech', [ArticleController::class, 'index']);
 Route::get('articles/create', [articleController::class, 'store'])->name('articles.store');
+
+
 ?>
 

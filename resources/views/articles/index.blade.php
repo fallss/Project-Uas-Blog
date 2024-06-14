@@ -42,7 +42,6 @@
     <div id="noteContainer"></div>
 
     <script>
-        // JavaScript code to handle button click and adding note box
         document.getElementById('addButton').addEventListener('click', function() {
             var noteContainer = document.getElementById('noteContainer');
             var noteBox = document.createElement('div');
