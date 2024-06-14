@@ -3,26 +3,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-class LoginController extends Controller
+use Illuminate\Validation\ValidationException;
+class loginController extends Controller
 {
     public function showLoginForm(){
         return view('auth.login');
     }
+
     public function login(Request $req){
-        $credentials = $req->only('email', 'password');
+       $req->validate([
+        'email' => 'required\email',
+        'password' => 'required',
+       ]);
 
-        if(Auth::attemp($credentials)){
-            return redirect()->intended('Dashboard');
-        }
+       if(Auth::attemp($req->only('email', 'password'))){
+        $req->session()->regenerate();
 
-        return redirect()->back()->withError([
-            'email' => 'email provided doesnt match records.'
-        ]);
+        return redirect()->intended('dashboard');
+       }
+
+       throw ValidationException::withMessages([
+        'email' => __('auth.failed'),
+       ]);
     }
 
-    public function logout(){
+    public function logout(Request $req){
         Auth::logout();
-        return redirect()->route('home');
+
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

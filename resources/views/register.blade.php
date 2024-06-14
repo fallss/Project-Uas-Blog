@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>Registrasi Pengguna</title>
 </head>
 <body>
-    <h2>User Registration</h2>
-
+    <h2>Registrasi Pengguna</h2>
     @if ($errors->any())
         <div>
-            <strong>Error:</strong>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -18,28 +16,26 @@
             </ul>
         </div>
     @endif
-
-    @if (session('success'))
-        <div>
-            <strong>{{ session('success') }}</strong>
-        </div>
-    @endif
-
-    <form method="POST" action="/register">
+    <form action="/register" method="POST">
         @csrf
-        <label for="Username">Username:</label><br>
-        <input type="text" id="name" name="name"><br>
-
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
-
-        <label for="password_confirm">Confirm Password:</label><br>
-        <input type="password" id="Password_Confirm" name="Password_Confirm"><br>
-
-        <button type="Submit">Accept</button>
+        <div>
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div>
+            <label for="password_confirmation">Password Confirm:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation">
+        </div>
+        <button type="button" onclick="window.location.href='/Tech'" class="link-button">Register</button>
     </form>
 </body>
 </html>
+
