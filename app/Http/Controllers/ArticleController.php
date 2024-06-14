@@ -14,4 +14,15 @@ class ArticleController extends Controller
     public function create(){
         return view('articles.create');
     }
+
+    public function store(Request $req)
+    {
+        $req->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        return redirect()->route('tech.index')->with('success', 'New Blog Successfully Added');
+    }
+    
 }
