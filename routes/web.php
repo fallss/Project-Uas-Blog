@@ -38,9 +38,8 @@ Route::get('decrypted', [DataController::class, 'showDecryptedForm']);
 
 Route::get('/register', [UserController::class, 'showRegistrationForm']);
 Route::post('/register', [UserController::class, 'register']);
-Route::get('/Tech', [ArticleController::class, 'index']);
-Route::get('Tech/create', [articleController::class, 'store'])->name('articles.store');
-
+Route::get('/tech', [ArticleController::class, 'index']);
+Route::post('/tech/create', [ArticleController::class, 'store'])->name('tech.create');
 
 ?>
 

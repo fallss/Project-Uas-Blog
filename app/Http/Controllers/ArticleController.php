@@ -6,23 +6,35 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+
     public function index()
     {
-        $articles = Article::All();
-        return view('articles.index', ['articles' => $articles]);
-    }
-    public function create(){
-        return view('articles.create');
+        $articles = Article::all();
+        return view('articles.index', compact('articles'));
     }
 
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $req->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        return redirect()->route('tech.index')->with('success', 'New Blog Successfully Added');
+        try{
+        $article = new Article();
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->save();
+
+        return response()->json(['message' => 'Note saved'], 200);
+    } catch(\Exception $e){
+        return response()->json(['message' => 'There is error when save new note: ' . $e->getMessage()], 500);
     }
-    
 }
+    public function show($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.show', compact('article'));
+    }
+}
+?>
