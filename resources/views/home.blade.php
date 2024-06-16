@@ -36,6 +36,8 @@
         <h1>Welcome to DJONG ARC</h1>
         <p>PLEASE REGISTER FIRST</p>
         <a href="/register" class="register-button">Register</a>
+        <h2></h2>
+        <a href="/login" class="login-button">Login</a>
         </div>
 </body>
 </html>
