@@ -6,7 +6,7 @@
     <title>Registrasi Pengguna</title>
 </head>
 <body>
-    <h2>Registrasi Pengguna</h2>
+    <h2>User Registration</h2>
     @if ($errors->any())
         <div>
             <ul>
@@ -19,7 +19,7 @@
     <form action="/register" method="POST">
         @csrf
         <div>
-            <label for="name">Nama:</label>
+            <label for="name">Username:</label>
             <input type="text" id="name" name="name">
         </div>
         <div>
