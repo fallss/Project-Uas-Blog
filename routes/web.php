@@ -13,13 +13,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [UserController::class, 'register']);
 
+Route::middleware('throttle:10,1')->group(function () {
 Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [loginController::class, 'login']);
 Route::post('/logout', [loginController::class, 'logout'])->name('logout');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/Tech', [ArticleController::class, 'index'])->name('tech.index'); // Route untuk halaman /Tech
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/Tech', [ArticleController::class, 'index'])->name('tech.index');
+});
+
 
 Route::get('/encrypt', function() {
     $encrypted = Crypt::encryptString('Sensitive data');
