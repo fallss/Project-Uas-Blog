@@ -25,12 +25,11 @@ class loginController extends Controller
 
         return redirect('/tech');
     }
+
     public function logout(Request $req)
     {
         Auth::logout();
-        $req->session()->invalidate();
-        $req->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/login');
     }
 
 }

@@ -56,6 +56,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <a><img src="LOGO.jpg" alt="Logo"></a>
     <h1>Welcome to Blog Digital</h1>
     <div id="articleContainer">
         <div class="article">
