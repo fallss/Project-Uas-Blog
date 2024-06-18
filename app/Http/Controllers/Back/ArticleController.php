@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Back;
 
 use App\Models\Article;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -19,6 +24,7 @@ class ArticleController extends Controller
 
             return DataTables::of($article)
             //custom column
+            ->addIndexColumn() // untuk Id
             ->addColumn('category_id', function($article) {
                 return $article->Category->name;
             }) 
@@ -32,9 +38,9 @@ class ArticleController extends Controller
             }) 
             ->addColumn('button', function($article) {
                 return '<div class="text-center">
-                                <a href="" class="btn btn-secondary">Detail</a>
-                                <a href="" class="btn btn-primary">Edit</a>
-                                <a href="" class="btn btn-danger">Delete</a>
+                                <a href="article/'.$article->id.'" class="btn btn-secondary">Detail</a>
+                                <a href="article/'.$article->id.'/edit" class="btn btn-primary">Edit</a>
+                                <a href="#" onclick="deleteArticle(this)" data-id="'.$article->id.'" class="btn btn-danger">Delete</a>
                 </div>';
             }) 
             //panggil custom column
@@ -51,15 +57,28 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.article.create', [
+            'categories' => Category::get(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $file = $request->file('img'); //img
+        $fileName = uniqid().'.'.$file->getClientOriginalExtension(); //jpg, jpeg
+        $file->storeAs('public/back/', $fileName); //public/back/dqjwq1.jpg
+
+        $data['img'] = $fileName;
+        $data['slug'] = Str::slug($data['title']);
+
+        Article::create($data);
+
+        return redirect(url('article'))->with('success', 'Data Article created successfully');
     }
 
     /**
@@ -67,7 +86,9 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('back.article.show',[
+            'article' => Article::find($id)
+        ]);
     }
 
     /**
@@ -75,15 +96,38 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('back.article.update', [
+            'article' => Article::find($id),
+            'categories' => Category::get(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateArticleRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('img')) {
+            
+            $file = $request->file('img'); //img
+            $fileName = uniqid().'.'.$file->getClientOriginalExtension(); //jpg, jpeg
+            $file->storeAs('public/back/', $fileName); //public/back/dqjwq1.jpg
+
+            //unlink img/delete olg image
+            Storage::delete('public/back/' .$request->oldImg);
+
+            $data['img'] = $fileName;
+        } else {
+            $data['img'] = $request->oldImg;
+        }
+        
+        $data['slug'] = Str::slug($data['title']);
+
+        Article::find($id)->update($data);
+
+        return redirect(url('article'))->with('success', 'Data Article updated successfully');
     }
 
     /**
@@ -91,6 +135,12 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Article::find($id);
+        Storage::delete('public/back/' .$data->img);
+        $data->delete();
+
+        return response()->json([
+           'message' => 'Data Article has been deleted'
+        ]);
     }
 }
