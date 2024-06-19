@@ -23,3 +23,7 @@ Route::resource('/categories', CategoryController::class)->only([
     'destroy']);
 
 Route::resource('article', ArticleController::class);
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => [ 'guest']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
