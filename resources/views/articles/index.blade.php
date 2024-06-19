@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJONG BLOG MAKER</title>
     <style>
+        body{
+            background-image: url(LOGO.png);
+        }
         .article {
             margin-bottom: 20px;
             padding: 10px;
@@ -71,7 +74,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <a><img src="LOGO.jpg" alt="Logo"></a>
+    <a></a>
+    <img src="images/LOGO.png" alt="Logo">
     <h1>Welcome to Djong Blog Digital</h1>
     <div id="articleContainer">
         <div class="article">
