@@ -6,6 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>BLOG</title>
         <style>
+            body{
+            background-image: url('images/Blog2.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
             .container{
                 margin: 0 auto;
                 max-width: 800px;
@@ -34,7 +41,7 @@
 <body>
     <div class="container">
         <h1>Welcome to DJONG ARC</h1>
-        <p>PLEASE REGISTER FIRST</p>
+        <h1>PLEASE REGISTER OR LOGIN FIRST</h1>
         <a href="/register" class="register-button">Register</a>
         <h2></h2>
         <a href="/login" class="login-button">Login</a>

@@ -6,13 +6,18 @@
     <title>DJONG BLOG MAKER</title>
     <style>
         body{
-            background-image: url(LOGO.png);
+            background-image: url('images/Blog2.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
         }
         .article {
             margin-bottom: 20px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background : rgba(255,255,255,0.7);
         }
         .add-button {
             display: inline-block;
@@ -74,8 +79,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <a></a>
-    <img src="images/LOGO.png" alt="Logo">
     <h1>Welcome to Djong Blog Digital</h1>
     <div id="articleContainer">
         <div class="article">
