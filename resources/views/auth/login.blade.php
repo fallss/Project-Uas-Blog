@@ -23,7 +23,7 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-=======
+            
 @extends('layouts.app')
 
 @section('content')

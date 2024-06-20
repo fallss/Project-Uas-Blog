@@ -112,30 +112,6 @@
             })
         }
 
-        function scanWeb(url){
-            $.ajax({
-                headers: {
-                    'X-CRSF-TOKEN' : $('meta[name="crsf-token"]').attr('content')
-                },
-                type: 'POST'
-                url: '/scan-virus',
-                data : {
-                    url: url;
-                },
-                dataType: "json",
-                success: function(response){
-                    swal.fire({
-                        title: 'Scan web',
-                        text: response.message,
-                        icon: 'info',
-                    });
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                            alert(xhr.status + "\n" + xhr.responseText + "\n" +
-                                thrownError);
-                        }
-                    });
-        }
     </script>
 
     {{-- data Table --}}
@@ -173,12 +149,6 @@
                         data: 'button',
                         name: 'button'
                     },
-                    {
-                        data: 'scan',
-                        name: 'scan',
-                        orderable: false,
-                        searchable: false,
-                    }
 
                 ]
             });
