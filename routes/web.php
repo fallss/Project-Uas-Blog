@@ -5,7 +5,7 @@ use App\Http\Controllers\Back\DashboardController;
 use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Back\CategoryController; // Add this line
-
+use App\Http\Controllers\loginController;
 
 
 Auth::routes();
@@ -23,3 +23,9 @@ Route::resource('/categories', CategoryController::class)->only([
     'destroy']);
 
 Route::resource('article', ArticleController::class);
+
+Route::middleware('throttle:10,1')->group(function () {
+    Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [loginController::class, 'login']);
+    Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+});
