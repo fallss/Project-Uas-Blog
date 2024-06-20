@@ -64,5 +64,7 @@
             </table>
         </div>
 
+        @include('back.user.create-modal');
+
     </main>
 @endsection
