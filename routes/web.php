@@ -30,6 +30,8 @@ Route::resource('article', ArticleController::class);
 
 Route::resource('/users', UserController::class);
 
+Route::get('/register', [UserController::class, 'showRegistrationForm']);
+Route::post('/register', [UserController::class, 'register']);
 Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [loginController::class, 'login']);
 Route::post('/logout', [loginController::class, 'logout'])->name('logout');
