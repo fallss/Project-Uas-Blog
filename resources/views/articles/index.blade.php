@@ -6,7 +6,7 @@
     <title>DJONG BLOG MAKER</title>
     <style>
         body{
-            background-image: url('images/Blog2.jpeg');
+            background-image: url('images/blog.jpeg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
