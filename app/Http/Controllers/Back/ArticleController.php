@@ -138,25 +138,9 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function scanFile(Request $request)
+    public function scanWebVirus(Request $request)
     {
-        $validated = $request->validate([
-            'file' => 'required|file|max:4096',
-        ]);
-
-        $file = $request->file('file');
-        $path = $file->store('uploads', 'public');
-
-        $fullPath = storage_path('app/public/' . $path);
-
-        $output = shell_exec("clamscan --stdout " . escapeshellarg($fullPath));
-
-        if (strpos($output, 'OK') !== false) {
-            return redirect()->back()->with('success', 'File uploaded and scanned successfully!');
-        } else {
-            Storage::disk('public')->delete($path);
-            return redirect()->back()->with('error', 'File is infected and has been removed!');
-        }
+       $url = $request
     }
 }
 ?>
