@@ -25,7 +25,7 @@ class loginController extends Controller
         ]);
 
 
-        return redirect('/dashboard');
+   return redirect('/dashboard');
     }
 
     public function logout(Request $req)
