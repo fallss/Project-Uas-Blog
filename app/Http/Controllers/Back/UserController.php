@@ -18,9 +18,12 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         
-        $dara = $request->validate();
+        $data = $request->validated();
+
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+        
+        return back()->with('success', 'User has been created');
     }
-
-
 
 }
