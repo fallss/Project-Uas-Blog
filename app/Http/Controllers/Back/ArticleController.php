@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Back;
-
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -23,34 +21,32 @@ class ArticleController extends Controller
             $article = Article::with('Category')->latest()->get();
 
             return DataTables::of($article)
-            //custom column
-            ->addIndexColumn() // untuk Id
-            ->addColumn('category_id', function($article) {
-                return $article->Category->name;
-            }) 
-            ->addColumn('status', function($article) {
-                if ($article->status == 0) {
-                    return '<span class="badge bg-danger">Private</span>';
-                } else {
-                    return '<span class="badge bg-success">Published</span>';
-                }
-                
-            }) 
-            ->addColumn('button', function($article) {
-                return '<div class="text-center">
-                                <a href="article/'.$article->id.'" class="btn btn-secondary">Detail</a>
-                                <a href="article/'.$article->id.'/edit" class="btn btn-primary">Edit</a>
-                                <a href="#" onclick="deleteArticle(this)" data-id="'.$article->id.'" class="btn btn-danger">Delete</a>
-                </div>';
-            }) 
-            //panggil custom column
-            ->rawColumns(['category_id', 'status', 'button'])
-            ->make();
+                //custom column
+                ->addIndexColumn() // untuk Id
+                ->addColumn('category_id', function($article) {
+                    return $article->Category->name;
+                })
+                ->addColumn('status', function($article) {
+                    if ($article->status == 0) {
+                        return '<span class="badge bg-danger">Private</span>';
+                    } else {
+                        return '<span class="badge bg-success">Published</span>';
+                    }
+                })
+                ->addColumn('button', function($article) {
+                    return '<div class="text-center">
+                                    <a href="article/'.$article->id.'" class="btn btn-secondary">Detail</a>
+                                    <a href="article/'.$article->id.'/edit" class="btn btn-primary">Edit</a>
+                                    <a href="#" onclick="deleteArticle(this)" data-id="'.$article->id.'" class="btn btn-danger">Delete</a>
+                    </div>';
+                })
+                //panggil custom column
+                ->rawColumns(['category_id', 'status', 'button'])
+                ->make();
         }
-        
+
         return view('back.article.index');
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -86,9 +82,8 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        return view('back.article.show',[
-            'article' => Article::find($id)
-        ]);
+        $article = Article::findOrFail($id);
+        return view('back.article.show', compact('article'));
     }
 
     /**
@@ -97,7 +92,7 @@ class ArticleController extends Controller
     public function edit(string $id)
     {
         return view('back.article.update', [
-            'article' => Article::find($id),
+            'article' => Article::findOrFail($id),
             'categories' => Category::get(),
         ]);
     }
@@ -110,22 +105,21 @@ class ArticleController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('img')) {
-            
             $file = $request->file('img'); //img
             $fileName = uniqid().'.'.$file->getClientOriginalExtension(); //jpg, jpeg
             $file->storeAs('public/back/', $fileName); //public/back/dqjwq1.jpg
 
-            //unlink img/delete olg image
+            //unlink img/delete old image
             Storage::delete('public/back/' .$request->oldImg);
 
             $data['img'] = $fileName;
         } else {
             $data['img'] = $request->oldImg;
         }
-        
+
         $data['slug'] = Str::slug($data['title']);
 
-        Article::find($id)->update($data);
+        Article::findOrFail($id)->update($data);
 
         return redirect(url('article'))->with('success', 'Data Article updated successfully');
     }
@@ -135,7 +129,7 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Article::find($id);
+        $data = Article::findOrFail($id);
         Storage::delete('public/back/' .$data->img);
         $data->delete();
 
@@ -143,4 +137,27 @@ class ArticleController extends Controller
            'message' => 'Data Article has been deleted'
         ]);
     }
+
+    public function scanFile(Request $request)
+    {
+        $validated = $request->validate([
+            'file' => 'required|file|max:4096',
+        ]);
+
+        $file = $request->file('file');
+        $path = $file->store('uploads', 'public');
+
+        $fullPath = storage_path('app/public/' . $path);
+
+        $output = shell_exec("clamscan --stdout " . escapeshellarg($fullPath));
+
+        if (strpos($output, 'OK') !== false) {
+            return redirect()->back()->with('success', 'File uploaded and scanned successfully!');
+        } else {
+            Storage::disk('public')->delete($path);
+            return redirect()->back()->with('error', 'File is infected and has been removed!');
+        }
+    }
 }
+?>
+
