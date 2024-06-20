@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJONG BLOG MAKER</title>
     <style>
+        body{
+            background-image: url(LOGO.png);
+        }
         .article {
             margin-bottom: 20px;
             padding: 10px;
@@ -52,12 +55,28 @@
             font-size: 16px;
             display: none;
         }
+        .logout-button{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            background-color: #dc3545;
+            color:white;
+            border: none;
+            border-radius: 5px;
+            font-size:16px;
+            cursor: pointer;
+        }
+        .logout-button:hover{
+            background-color: #c82333;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <a><img src="LOGO.jpg" alt="Logo"></a>
-    <h1>Welcome to Blog Digital</h1>
+    <a></a>
+    <img src="images/LOGO.png" alt="Logo">
+    <h1>Welcome to Djong Blog Digital</h1>
     <div id="articleContainer">
         <div class="article">
             <h2>Blog</h2>
@@ -69,6 +88,10 @@
                 c. Tidak cocok untuk bermain game
             </p>
         </div>
+        <form id="logoutForm" action='/logout' method="POST">
+            @csrf
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
         <a href="#" id="addButton" class="add-button">+</a>
         <div id="noteContainer"></div>
     </div>
