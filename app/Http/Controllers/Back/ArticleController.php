@@ -9,7 +9,7 @@ use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\UpdateArticleRequest;
-
+use Illuminate\Support\Facades\Http;
 class ArticleController extends Controller
 {
     /**
@@ -140,7 +140,18 @@ class ArticleController extends Controller
 
     public function scanWebVirus(Request $request)
     {
-       $url = $request
+       $url = $request->input('url');
+
+       $apikey = 'YOUR_VIRUSTOTAL_API_KEY';
+
+       $response = Http:post('https://www.virustotal.com/vtapi/v2/url/scan', [
+            'apikey' => $apiKey,
+            'url' => $url
+        ]);
+
+        $result = $response()->json();
+
+        return response()->json(['message' => 'scan successfully']);
     }
 }
 ?>

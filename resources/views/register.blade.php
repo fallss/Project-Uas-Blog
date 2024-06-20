@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi Pengguna</title>
+    <style>
+        body{
+            background-image: url('images/Blog2.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+</style>
 </head>
 <body>
     <h2>User Registration</h2>

@@ -31,7 +31,7 @@
             {{-- success alert --}}
             <div class="swal" data-swal="{{ session('success') }}"></div>
 
-            <table class="table table-striped table-bordered" id="dataTable">
+            <table class="table table-striped table-bordered mb-2" id="dataTable">
                 <thead>
                     <tr>
                         <th>No</th>
