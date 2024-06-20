@@ -25,12 +25,20 @@
                     Users
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Logout
                 </a>
             </li>
+
 
             <h6
                 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
