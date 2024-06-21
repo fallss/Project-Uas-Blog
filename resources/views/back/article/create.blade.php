@@ -37,7 +37,7 @@
 
                     <div class="col-6">
                         <div class="mb-3">
-                            <label for="category_id">Categoty</label>
+                            <label for="category_id">Category</label>
                             <select name="category_id" id="category_id" class="form_control">
                                 <option value="" hidden>-- choose --</option>
                                 @foreach ($categories as $item)
