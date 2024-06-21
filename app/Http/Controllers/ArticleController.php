@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -32,7 +31,10 @@ class ArticleController extends Controller
         return response()->json(['message' => 'There is error when save new note: ' . $e->getMessage()], 500);
     }
 }
-   
+    public function show($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.show', compact('article'));
+    }
 }
-
 ?>

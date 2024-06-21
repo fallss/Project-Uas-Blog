@@ -17,15 +17,15 @@ class loginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-                'username' => ['required', 'string'],
-                'email' => ['required', 'email'],
-                'password' => 'required|string|min:6',
-            ]);
+            'username' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'password' => 'required|string|min:6',
+        ]);
 
-            $credentials = $request->only('username','email', 'password');
+        $credentials = $request->only('username','email', 'password');
 
-            return redirect('/dashboard');
-        }
+        return redirect('/tech');
+    }
 
     public function logout(Request $req)
     {
