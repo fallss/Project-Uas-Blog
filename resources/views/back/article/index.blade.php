@@ -28,7 +28,6 @@
                 </div>
             @endif
 
-            {{-- success alert --}}
             <div class="swal" data-swal="{{ session('success') }}"></div>
 
             <table class="table table-striped table-bordered mb-2" id="dataTable">
@@ -61,126 +60,98 @@
 
     {{-- alert success --}}
     <script>
-        const swal = $('.swal').data('swal');
-
-        if (swal) {
-            Swal.fire({
-                'title': 'Success',
-                'text': swal,
-                'icon': 'success',
-                'showConfirmButton': false,
-                'timer': 3000
-            })
-        }
-
-        function deleteArticle(e) {
-            let id = e.getAttribute('data-id');
-
-            Swal.fire({
-                title: 'Delete Article',
-                text: "Are You Sure .? ",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Delete!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"] ').attr('content')
-                        },
-                        type: 'DELETE',
-                        url: '/article/' + id,
-                        dataType: "json",
-                        success: function(response) {
-                            Swal.fire({
-                                title: 'Success',
-                                text: response.message,
-                                icon: 'success',
-                            }).then((result) => {
-                                window.location.href = '/article';
-                            })
-                        },
-                        error: function(xhr, ajaxOptions, thrownError) {
-                            alert(xhr.status + "\n" + xhr.responseText + "\n" +
-                                thrownError);
-                        }
-                    });
-                }
-            });
-            function scanWeb(url){
-            $.ajax({
-                headers: {
-                    'X-CRSF-TOKEN' : $('meta[name="crsf-token"]').attr('content')
-                },
-                type: 'POST'
-                url: '/scan-virus',
-                data : {
-                    url: url;
-                },
-                dataType: "json",
-                success: function(response){
-                    swal.fire({
-                        title: 'Scan web',
-                        text: response.message,
-                        icon: 'info',
-                    });
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                            alert(xhr.status + "\n" + xhr.responseText + "\n" +
-                                thrownError);
-                        }
-                    });
-        }
-    </script>
-
-    {{-- data Table --}}
-    <script>
         $(document).ready(function() {
+            const swal = $('.swal').data('swal');
+
+            if (swal) {
+                Swal.fire({
+                    'title': 'Success',
+                    'text': swal,
+                    'icon': 'success',
+                    'showConfirmButton': false,
+                    'timer': 3000
+                });
+            }
+
             $('#dataTable').DataTable({
                 processing: true,
                 serverside: true,
                 ajax: '{{ url()->current() }}',
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'title',
-                        name: 'title'
-                    },
-                    {
-                        data: 'category_id',
-                        name: 'category_id'
-                    },
-                    {
-                        data: 'views',
-                        name: 'views'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'publish_date',
-                        name: 'publish_date'
-                    },
-                    {
-                        data: 'button',
-                        name: 'button'
-                    },
-                    {
-
-                        data: 'scan',
-                        name: 'scan',
-                        orderable: false,
-                        searchable: false,
-                    },
-
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'title', name: 'title' },
+                    { data: 'category_id', name: 'category_id' },
+                    { data: 'views', name: 'views' },
+                    { data: 'status', name: 'status' },
+                    { data: 'publish_date', name: 'publish_date' },
+                    { data: 'button', name: 'button' },
+                    { data: 'scan', name: 'scan', orderable: false, searchable: false }
                 ]
             });
+
+            function deleteArticle(e) {
+                let id = e.getAttribute('data-id');
+
+                Swal.fire({
+                    title: 'Delete Article',
+                    text: "Are You Sure?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Delete!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'DELETE',
+                            url: '/article/' + id,
+                            dataType: "json",
+                            success: function(response) {
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: response.message,
+                                    icon: 'success',
+                                }).then((result) => {
+                                    window.location.href = '/article';
+                                });
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    }
+                });
+            }
+
+            function scanWeb(url) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    url: '/scan-virus',
+                    data: { url: url },
+                    dataType: "json",
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Scan web',
+                            text: response.message,
+                            icon: 'info',
+                        });
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            }
+
+            window.deleteArticle = deleteArticle;
+            window.scanWeb = scanWeb;
         });
     </script>
 @endpush
+

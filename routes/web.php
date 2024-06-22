@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Back\UserController;
-
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\loginController;
-
+use App\Http\Controllers\VirusScanController;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -31,6 +31,4 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 });
 
-Route::get('/scan', function () {
-    return view('scan');
-});
+Route::post('/scan-virus', [VirusScanController::class, 'scanWebVirus'])->name('scan.web.virus');
