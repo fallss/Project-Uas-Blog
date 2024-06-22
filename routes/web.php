@@ -5,7 +5,7 @@ use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\Back\CategoryController; 
+use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\loginController;
 
 use App\Http\Controllers\Back\UserController;
@@ -29,9 +29,7 @@ Route::resource('/categories', CategoryController::class)->only([
 
 Route::resource('article', ArticleController::class);
 
-Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [loginController::class, 'login']);
-Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+
 
     Route::resource('/users', UserController::class);
 

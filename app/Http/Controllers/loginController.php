@@ -8,7 +8,8 @@ use App\Models\User;
 
 class loginController extends Controller
 {
-    protected $goesTo = '/Tech';
+    protected $goesTo = '/dashboard';
+    
     public function showLoginForm()
     {
         return view('auth.login');
