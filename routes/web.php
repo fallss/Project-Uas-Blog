@@ -30,3 +30,7 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::post('/login', [loginController::class, 'login']);
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 });
+
+Route::get('/scan', function () {
+    return view('scan');
+})->name('scan.web.form');
