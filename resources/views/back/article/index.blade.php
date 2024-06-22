@@ -85,8 +85,18 @@
                     { data: 'status', name: 'status' },
                     { data: 'publish_date', name: 'publish_date' },
                     { data: 'button', name: 'button' },
-                    { data: 'scan', name: 'scan', orderable: false, searchable: false }
+                    {
+                        data: 'id',
+                        name: 'action',
+                        orderable: false,
+                        searchabel: false,
+                        render: function(data, type, full, meta){
+                           return '<button onclick="scanweb('+ data + ')" class="btn btn-info">Scan</button>';
+
+                        }
+                    }
                 ]
+
             });
 
             function deleteArticle(e) {
@@ -127,7 +137,7 @@
                 });
             }
 
-            function scanWeb(url) {
+            function scanWeb(id) {
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -148,9 +158,6 @@
                     }
                 });
             }
-
-            window.deleteArticle = deleteArticle;
-            window.scanWeb = scanWeb;
         });
     </script>
 @endpush

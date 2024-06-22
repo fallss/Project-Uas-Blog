@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Http;
 
 class VirusScanController extends Controller
 {
+    public function index(){
+        return view('scan-virus');
+    }
 public function scanWebVirus(Request $request)
 {
     $url = $request->input('url');

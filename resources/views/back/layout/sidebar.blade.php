@@ -25,7 +25,12 @@
                     Users
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('scan-virus') }}">
+                    <span data-feather="shield" class="align-text-bottom"></span>
+                    Scan Virus
+                </a>
+            </li>
             <li class="nav-item">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

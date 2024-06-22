@@ -50,7 +50,7 @@
                 $('.clean-button').hide();
 
                 $.ajax({
-                    url: '{{ route('scan.web.virus') }}',
+                    url: '{{ route('scan-virus') }}',
                     method: 'POST',
                     data: {
                         url: $('#url').val(),
