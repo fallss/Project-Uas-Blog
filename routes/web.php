@@ -4,6 +4,7 @@ use App\Http\Controllers\Back\DashboardController;
 use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Back\CategoryController;
+use App\Http\Controllers\Back\UserController;
 
 use App\Http\Controllers\loginController;
 
@@ -11,14 +12,18 @@ use App\Http\Controllers\loginController;
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [LandingPageController::class, 'index']);
+
+Route::middleware('auth')->group(function() {
 Route::get('/dashboard',[DashboardController::class, 'index']);
+Route::resource('article', ArticleController::class);
 Route::resource('/categories', CategoryController::class)->only([
     'index',
    'store',
     'update',
     'destroy']);
+});
+Route::resource('users', UserController::class);
 
-    Route::resource('article', ArticleController::class);
 
 Route::middleware('throttle:10,1')->group(function () {
     Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
