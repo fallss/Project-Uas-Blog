@@ -117,18 +117,4 @@ class ArticleController extends Controller
         return response()->json(['message' => 'Article deleted successfully']);
     }
 
-    public function scanWebVirus(Request $request)
-    {
-        $url = $request->input('url');
-        $apiKey = 'YOUR_VIRUSTOTAL_API_KEY';
-
-        $response = Http::post('https://www.virustotal.com/vtapi/v2/url/scan', [
-            'apikey' => $apiKey,
-            'url' => $url
-        ]);
-
-        $result = $response->json();
-
-        return response()->json(['message' => 'Scan initiated successfully']);
-    }
 }

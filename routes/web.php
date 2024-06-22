@@ -33,4 +33,4 @@ Route::middleware('throttle:10,1')->group(function () {
 
 Route::get('/scan', function () {
     return view('scan');
-})->name('scan.web.form');
+});
