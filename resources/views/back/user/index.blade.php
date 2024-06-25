@@ -10,7 +10,9 @@
         </div>
 
         <div class="mt-3">
-            <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#modalCreate">Register</button>
+            @if (auth()->user()->role == 1)
+                <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#modalCreate">Register</button>
+            @endif
 
             @if ($errors->any())
                 <div class="my-3">
@@ -54,8 +56,15 @@
                                 <div class="text-center">
                                     <button class="btn btn-secondary" data-bs-toggle="modal"
                                         data-bs-target="#modalUpdate{{ $item->id }}">Edit</button>
-                                    <button class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#modalDelete{{ $item->id }}">Delete</button>
+
+                                    {{-- admin/owner tidak bisa menhapus dirinya sendiri --}}
+                                    @if (auth()->user()->role == 1)
+                                        @if ($item->id != auth()->user()->id)
+                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modalDelete{{ $item->id }}">Delete</button>
+                                        @endif
+                                    @endif
+
                                 </div>
                             </td>
                         </tr>

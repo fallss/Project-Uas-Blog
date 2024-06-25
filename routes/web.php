@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function() {
     'index',
    'store',
     'update',
-    'destroy']);
+    'destroy'])->middleware('UserAccess:1');
 
     Route::resource('article', ArticleController::class);
 
