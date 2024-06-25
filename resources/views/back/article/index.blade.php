@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 @endpush
 
-@section('title', 'List Articles -Admin')
+@section('title', 'List Articles - Admin')
 
 @section('content')
     {{-- content / body --}}
@@ -40,6 +40,7 @@
                         <th>Status</th>
                         <th>Publish Date</th>
                         <th>Function</th>
+                        <th>Action</th> <! --- column for button "Scan Virus" -->
                     </tr>
                 </thead>
 
@@ -89,7 +90,7 @@
                         data: 'id',
                         name: 'action',
                         orderable: false,
-                        searchabel: false,
+                        searchable: false,
                         render: function(data, type, full, meta){
                            return '<button onclick="scanweb('+ data + ')" class="btn btn-info">Scan</button>';
 
@@ -143,8 +144,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'POST',
-                    url: '/scan-virus',
-                    data: { url: url },
+                    url: '{{ route('scan-virus') }}',
+                    data: { article_id: id },
                     dataType: "json",
                     success: function(response) {
                         Swal.fire({

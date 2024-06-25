@@ -45,9 +45,7 @@
             $('#scan-form').on('submit', function(e) {
                 e.preventDefault();
 
-                $('.loading').show();
-                $('.result').hide();
-                $('.clean-button').hide();
+                $('.loading').show(); 
 
                 $.ajax({
                     url: '{{ route('scan-virus') }}',
@@ -65,9 +63,9 @@
                             $('.clean-button').show();
                         }
                     },
-                    error: function(xhr) {
+                    error: function(xhr, status, error) {
                         $('.loading').hide();
-                        alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+                        $('.result').text('Error: ' + error).addClass('danger').removeClass('success').show();
                     }
                 });
             });
@@ -80,4 +78,7 @@
     </script>
 </body>
 </html>
+
+
+
 
