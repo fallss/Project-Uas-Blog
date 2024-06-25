@@ -16,7 +16,6 @@ class VirusScanController extends Controller
     public function scanWebVirus(Request $request)
     {
         try {
-
             $request->validate([
                 'url' => 'required|url'
             ]);
@@ -55,11 +54,12 @@ class VirusScanController extends Controller
                 return response()->json(['status' => 'success', 'message' => 'Scanned successfully, no virus detected']);
             }
         } catch (\Exception $e) {
-            Log::error('Error scanning URL: ' . $e->getMessage());
+            Log::error('Error scanning URL: ' . $e->getMessage(), []);
             return response()->json(['status' => 'error', 'message' => 'Internal Server Error. Please try again later.'], 500);
         }
     }
 }
+
 
 
 
