@@ -25,6 +25,7 @@ Route::resource('/categories', CategoryController::class)->only([
 });
 Route::get('/scan-virus', [VirusScanController::class, 'index'])->name('scan-virus.index');
 Route::post('/scan-virus', [VirusScanController::class, 'scan'])->name('scan-virus');
+Route::post('/clean-virus', [VirusScanController::class, 'clean'])->name('clean-virus');
 
 Route::resource('users', UserController::class);
 

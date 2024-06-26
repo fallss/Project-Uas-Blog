@@ -57,6 +57,10 @@
         #scanResult{
             font-size:50px;
         }
+        #backbutton {
+            display:none;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -89,8 +93,8 @@
                     }
                 });
             });
-            $('#cleanButton').click(function() {
-                alert('Cleaning...');
+            $('#backButton').click(function() {
+                window.location.href = '{{ route('article.index') }}';
             });
         });
     </script>
@@ -107,6 +111,9 @@
             <button type="submit" id="scanButton">Start Scan</button>
         </form>
         <div id="scanResult"></div>
+        <div id="scanMessage"></div>
+        <button id="cleanButton">Clean</button>
+        <button id="backButton">Back</button>
     </article>
 </body>
 </html>
