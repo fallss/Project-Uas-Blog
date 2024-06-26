@@ -15,6 +15,7 @@ use App\Http\Controllers\LandingPageController;
 // Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/articles/search', [HomeController::class, 'index'])->name('search');
 
 
 
