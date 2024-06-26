@@ -23,7 +23,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* CSS untuk overlay */
         .overlay {
             display: none;
             position: fixed;

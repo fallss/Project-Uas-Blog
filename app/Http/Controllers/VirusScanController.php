@@ -9,7 +9,7 @@ use Symfony\Component\Process\Process;
 
 class VirusScanController extends Controller
 {
-    public function scanWebVirus(Request $request)
+    public function Scan(Request $request)
     {
             $scanningProcess = new Process(['your-antivirus-command', 'arguments']);
             $scanningProcess->run();
