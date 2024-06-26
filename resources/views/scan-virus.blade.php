@@ -3,7 +3,7 @@
 <head>
     <title>Antivirus Scanning</title>
     <style>
-           body {
+        body {
             background-image: url('images/defender.jpg');
             background-size: cover;
             background-repeat: no-repeat;
@@ -41,6 +41,9 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 9999;
         }
+        #cleanButton {
+            display: none;
+        }
 
         article {
             padding: 20px;
@@ -50,6 +53,9 @@
             margin: auto;
             position: relative;
             top: 50px;
+        }
+        #scanResult{
+            font-size:50px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -71,6 +77,10 @@
                         $('.loader').hide();
                         $('.overlay').hide();
                         $('#scanResult').text(response.message);
+
+                        if(response.message === 'virus detected'){
+                            $('#cleanButton').show();
+                        }
                     },
                     error: function(xhr, status, error) {
                         $('.loader').hide();
@@ -78,6 +88,9 @@
                         $('#scanResult').text('Error scanning: ' + error);
                     }
                 });
+            });
+            $('#cleanButton').click(function() {
+                alert('Cleaning...');
             });
         });
     </script>
@@ -89,7 +102,10 @@
 
     <article>
         <h1>Scan Virus</h1>
-        <button id="scanButton">Start Scan</button>
+        <form id="scanForm" method="POST" action="{{ route('scan-virus') }}">
+            @csrf
+            <button type="submit" id="scanButton">Start Scan</button>
+        </form>
         <div id="scanResult"></div>
     </article>
 </body>

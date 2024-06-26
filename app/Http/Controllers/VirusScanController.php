@@ -28,4 +28,12 @@ class VirusScanController extends Controller
                 echo "Scanned completed, No virus detected";
             }
         }
+        public function clean(Request $request){
+            $process = new Process(['your-clean-command', 'arguments']);
+            $process->run();
+
+            if($process->isSuccessful()){
+                echo "Virus has been cleaned";
+            }
+        }
     }
