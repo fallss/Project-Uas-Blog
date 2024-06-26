@@ -23,8 +23,8 @@ Route::resource('/categories', CategoryController::class)->only([
     'update',
     'destroy']);
 });
-
-Route::get('/scan-virus', [VirusScanController::class, 'scanWebVirus'])->name('scan');
+Route::get('/scan-virus', [VirusScanController::class, 'index'])->name('scan-virus.index');
+Route::post('/scan-virus', [VirusScanController::class, 'scan'])->name('scan-virus');
 
 Route::resource('users', UserController::class);
 

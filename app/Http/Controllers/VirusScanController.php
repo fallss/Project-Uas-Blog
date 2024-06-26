@@ -9,7 +9,11 @@ use Symfony\Component\Process\Process;
 
 class VirusScanController extends Controller
 {
-    public function Scan(Request $request)
+    public function index()
+    {
+        return view('scan-virus');
+    }
+    public function scan(Request $request)
     {
             $scanningProcess = new Process(['your-antivirus-command', 'arguments']);
             $scanningProcess->run();
@@ -19,9 +23,9 @@ class VirusScanController extends Controller
             $isInfected = strpos($output, 'Virus detected') !== false;
 
             if ($isInfected) {
-                return response()->json(['message' => 'Virus detected, Clean Now!']);
+                echo "Virus detected, Clean Now!";
             } else {
-                return response()->json(['message' => 'Scanned successfully, No virus detected']);
+                echo "Scanned completed, No virus detected";
             }
         }
     }

@@ -3,6 +3,14 @@
 <head>
     <title>Antivirus Scanning</title>
     <style>
+           body {
+            background-image: url('images/defender.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+
         .loader {
             border: 16px solid #f3f3f3;
             border-top: 16px solid #3498db;
@@ -31,7 +39,18 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 9999; }
+            z-index: 9999;
+        }
+
+        article {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            position: relative;
+            top: 50px;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -39,19 +58,22 @@
             $('#scanButton').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('scan') }}',
+                    url: '{{ route('scan-virus') }}',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
                     beforeSend: function() {
                         $('#scanResult').text('');
                         $('.overlay').show();
-                        $('#loader').show();
+                        $('.loader').show();
                     },
                     success: function(response) {
-                        $('#loader').hide();
+                        $('.loader').hide();
                         $('.overlay').hide();
                         $('#scanResult').text(response.message);
                     },
                     error: function(xhr, status, error) {
-                        $('#loader').hide();
+                        $('.loader').hide();
                         $('.overlay').hide();
                         $('#scanResult').text('Error scanning: ' + error);
                     }
@@ -62,12 +84,11 @@
 </head>
 <body>
     <div class="overlay">
-        <div id="loader" class="loader"></div>
+        <div class="loader"></div>
     </div>
 
     <article>
-        <h1>BLOG</h1>
-        <p>Konten artikel...</p>
+        <h1>Scan Virus</h1>
         <button id="scanButton">Start Scan</button>
         <div id="scanResult"></div>
     </article>
