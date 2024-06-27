@@ -1,14 +1,14 @@
 <?php
+use App\Models\Article;
+use App\Http\Controllers\Back\UserController;
+use Illuminate\Support\Facades\{Route, Auth};
+use App\Http\Controllers\Front\HomeController;
+
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Back\ArticleController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\CategoryController; // Add this line
-use App\Http\Controllers\Back\UserController;
-
-use App\Http\Controllers\Front\HomeController;
-use Illuminate\Support\Facades\{Route, Auth};
-use App\Http\Controllers\LandingPageController;
-
-
+use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
@@ -17,7 +17,7 @@ use App\Http\Controllers\LandingPageController;
 Route::get('/', [HomeController::class, 'index']);
 Route::post('/articles/search', [HomeController::class, 'index'])->name('search');
 
-
+Route::get('/p/{slug}', [FrontArticleController::class, 'show']);
 
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard',[DashboardController::class, 'index']);

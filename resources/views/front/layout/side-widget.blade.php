@@ -1,6 +1,6 @@
 <div class="col-lg-4">
     <!-- Search widget-->
-    <div class="card mb-4">
+    <div class="card mb-4 shadow">
         <div class="card-header">Search</div>
         <div class="card-body">
 
@@ -15,22 +15,23 @@
         </div>
     </div>
     <!-- Categories widget-->
-    <div class="card mb-4">
+    <div class="card mb-4 shadow">
         <div class="card-header">Categories</div>
         <div class="card-body">
 
             <div>
                 @foreach ($categories as $item)
-                    <span><a href="#!" class="bg-primary badge text-white">{{ $item->name }}</a></span>
+                    <span><a href="#!"
+                            class="bg-primary badge text-white unstyle-categories">{{ $item->name }}</a></span>
                 @endforeach
             </div>
 
         </div>
     </div>
     <!-- Side widget-->
-    <div class="card mb-4">
+    <div class="card mb-4 shadow">
         <div class="card-header">Side Widget</div>
-        <div class="card-body">You can put anything you want inside of these side widgets. They are
-            easy to use, and feature the Bootstrap 5 card component!</div>
+        <div class="card-body">Feel free to customize these side widgets to include any content you desire. They are
+            user-friendly and utilize the Bootstrap 5 card component for a sleek and modern appearance!.</div>
     </div>
 </div>
