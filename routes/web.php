@@ -6,9 +6,10 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\loginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\VirusScanController;
 use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Controllers\HomeController;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -34,8 +35,9 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => [ 'guest']], fu
 });
 
 Route::middleware('throttle:10,1')->group(function () {
-    Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [loginController::class, 'login']);
-    Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+    Route::get('/register', [RegisterController::class, 'showLoginForm'])->name('register');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
