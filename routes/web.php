@@ -15,9 +15,11 @@ use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 // Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'index']);
-Route::post('/articles/search', [HomeController::class, 'index'])->name('search');
 
 Route::get('/p/{slug}', [FrontArticleController::class, 'show']);
+Route::get('/articles', [FrontArticleController::class, 'index']);
+Route::post('/articles/search', [FrontArticleController::class, 'index'])->name('search');
+
 
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard',[DashboardController::class, 'index']);
