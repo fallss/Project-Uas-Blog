@@ -49,12 +49,9 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-<<<<<<< HEAD
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/login-histories', [App\Http\Controllers\Admin\LoginHistoryController::class, 'index'])->name('admin.login_histories.index');
 });
 
-
-=======
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
->>>>>>> 2fb2c67782076ee6b5c5c18c85d8bd469303dcd0
+
