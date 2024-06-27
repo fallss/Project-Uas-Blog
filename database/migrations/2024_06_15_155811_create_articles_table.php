@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('category_id')->index()->constrained();
             $table->string('title');
             $table->string('slug');
-            $table->longText('desc');    
-            $table->string('img');          
+            $table->longText('desc');
+            $table->string('img');
             $table->string('status');
             $table->integer('views')->default('0');
             $table->date('publish_date');

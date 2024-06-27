@@ -1,39 +1,40 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\Process\Process;
 
 class VirusScanController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('scan-virus');
     }
-public function scanWebVirus(Request $request)
-{
-    $url = $request->input('url');
-    $apiKey = 'YOUR_VIRUSTOTAL_API_KEY';
+    public function scan(Request $request)
+    {
+            $scanningProcess = new Process(['your-antivirus-command', 'arguments']);
+            $scanningProcess->run();
 
-    $response = Http::post('https://www.virustotal.com/vtapi/v2/url/scan', [
-        'apikey' => $apiKey,
-        'url' => $url
-    ]);
+            $output = $scanningProcess->getOutput();
 
-    $result = $response->json();
+            $isInfected = strpos($output, 'Virus detected') !== false;
 
-    $reportResponse = Http::asForm()->post('https://www.virustotal.com/vtapi/v2/url/report', [
-        'apikey' => $apiKey,
-        'resource' => $result['scan_id']
-    ]);
+            if ($isInfected) {
+                echo "Virus detected, Clean Now!";
+            } else {
+                echo "Scanned completed, No virus detected";
+            }
+        }
+        public function clean(Request $request){
+            $process = new Process(['your-clean-command', 'arguments']);
+            $process->run();
 
-    $reportResult = $reportResponse->json();
-
-    if($reportResult['positives'] > 0){
-        return response()->json(['status' => 'danger', 'message' => 'Virus detected']);
+            if($process->isSuccessful()){
+                echo "Virus has been cleaned";
+            }
+        }
     }
-    else {
-      return response()->json(['status' => 'danger', 'message' => 'Scanned succesfully, there is no virus detected']);
-    }
-    }
-}
 

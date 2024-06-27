@@ -1,83 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virus Scan</title>
+    <title>Antivirus Scanning</title>
     <style>
         body {
+            background-image: url('images/defender.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             font-family: Arial, sans-serif;
         }
-        .loading {
-            display: none;
-            font-size: 20px;
-        }
-        .result {
-            display: none;
-            margin-top: 20px;
-        }
-        .result.success {
-            color: green;
-        }
-        .result.danger {
-            color: red;
-        }
-        .clean-button {
-            display: none;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Scan Website for Virus</h2>
-    <form id="scan-form">
-        <label for="url">Website URL:</label>
-        <input type="text" id="url" name="url" required>
-        <button type="submit">Scan</button>
-    </form>
-    <div class="loading">Scanning...</div>
-    <div class="result"></div>
-    <button class="clean-button">Clean</button>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -60px;
+            margin-top: -60px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+        #cleanButton {
+            display: none;
+        }
+
+        article {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            position: relative;
+            top: 50px;
+        }
+        #scanResult{
+            font-size:50px;
+        }
+        #backbutton {
+            display:none;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#scan-form').on('submit', function(e) {
-                e.preventDefault();
-
-                $('.loading').show();
-                $('.result').hide();
-                $('.clean-button').hide();
-
+            $('#scanButton').click(function() {
                 $.ajax({
+                    type: 'POST',
                     url: '{{ route('scan-virus') }}',
-                    method: 'POST',
                     data: {
-                        url: $('#url').val(),
                         _token: '{{ csrf_token() }}'
                     },
+                    beforeSend: function() {
+                        $('#scanResult').text('');
+                        $('.overlay').show();
+                        $('.loader').show();
+                    },
                     success: function(response) {
-                        $('.loading').hide();
-                        if (response.status === 'success') {
-                            $('.result').text(response.message).addClass('success').removeClass('danger').show();
-                        } else {
-                            $('.result').text(response.message).addClass('danger').removeClass('success').show();
-                            $('.clean-button').show();
+                        $('.loader').hide();
+                        $('.overlay').hide();
+                        $('#scanResult').text(response.message);
+
+                        if(response.message === 'virus detected'){
+                            $('#cleanButton').show();
                         }
                     },
-                    error: function(xhr) {
-                        $('.loading').hide();
-                        alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+                    error: function(xhr, status, error) {
+                        $('.loader').hide();
+                        $('.overlay').hide();
+                        $('#scanResult').text('Error scanning: ' + error);
                     }
                 });
             });
-
-            $('.clean-button').on('click', function() {
-                $('.result').text('Cleaning successfully').addClass('success').removeClass('danger').show();
-                $('.clean-button').hide();
+            $('#backButton').click(function() {
+                window.location.href = '{{ route('article.index') }}';
             });
         });
     </script>
+</head>
+<body>
+    <div class="overlay">
+        <div class="loader"></div>
+    </div>
+
+    <article>
+        <h1>Scan Virus</h1>
+        <form id="scanForm" method="POST" action="{{ route('scan-virus') }}">
+            @csrf
+            <button type="submit" id="scanButton">Start Scan</button>
+        </form>
+        <div id="scanResult"></div>
+        <div id="scanMessage"></div>
+        <button id="cleanButton">Clean</button>
+        <button id="backButton">Back</button>
+    </article>
 </body>
 </html>
-
