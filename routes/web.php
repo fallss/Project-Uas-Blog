@@ -19,7 +19,7 @@ Route::get('/dashboard',[DashboardController::class, 'index']);
 Route::resource('article', ArticleController::class);
 Route::resource('/categories', CategoryController::class)->only([
     'index',
-   'store',
+    'store',
     'update',
     'destroy']);
 });
@@ -36,4 +36,9 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::post('/login', [loginController::class, 'login']);
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 });
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('admin/login-histories', [App\Http\Controllers\Admin\LoginHistoryController::class, 'index'])->name('admin.login_histories.index');
+});
+
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Models\LoginHistory;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+    protected function authenticated(Request $request, $user)
+    {
+        LoginHistory::create([
+            'user_id' => $user->id,
+            'login_time' => now(),
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+        ]);
     }
 }
