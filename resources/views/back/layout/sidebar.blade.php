@@ -20,17 +20,30 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ url('users') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Users
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('scan-virus') }}">
+                    <span data-feather="shield" class="align-text-bottom"></span>
+                    Scan Virus
+                </a>
+            </li>
+            <li class="nav-item">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Logout
                 </a>
             </li>
+
 
             <h6
                 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
