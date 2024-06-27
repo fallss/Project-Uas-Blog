@@ -62,3 +62,4 @@ class CategoryController extends Controller
         return back()->with('success', 'Categories has been deleted');
     }
 }
+
