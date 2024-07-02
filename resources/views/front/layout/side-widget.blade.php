@@ -21,7 +21,7 @@
 
             <div>
                 @foreach ($categories as $item)
-                    <span><a href="#!"
+                    <span><a href="{{ url('category/' . $item->slugz) }}"
                             class="bg-primary badge text-white unstyle-categories">{{ $item->name }}</a></span>
                 @endforeach
             </div>

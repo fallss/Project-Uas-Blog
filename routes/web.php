@@ -9,17 +9,21 @@ use App\Http\Controllers\Back\ArticleController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\CategoryController; // Add this line
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
+use App\Http\Controllers\Front\CategoryController as FrontCategoryController; 
+
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
 // Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [HomeController::class, 'about']);
 
 Route::get('/p/{slug}', [FrontArticleController::class, 'show']);
 Route::get('/articles', [FrontArticleController::class, 'index']);
 Route::post('/articles/search', [FrontArticleController::class, 'index'])->name('search');
 
+Route::get('category/{slug}', [FrontCategoryController::class, 'index']);
 
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard',[DashboardController::class, 'index']);
