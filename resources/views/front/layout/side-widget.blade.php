@@ -1,4 +1,4 @@
-<div class="col-lg-4">
+<div class="col-lg-4" data-aos="fade-left">
     <!-- Search widget-->
     <div class="card mb-4 shadow">
         <div class="card-header">Search</div>
@@ -21,16 +21,24 @@
 
             <div>
                 @foreach ($categories as $item)
-                    <span><a href="{{ url('category/' . $item->slugz) }}"
+                    <span><a href="{{ url('category/' . $item->slug) }}"
                             class="bg-primary badge text-white unstyle-categories">{{ $item->name }}</a></span>
                 @endforeach
             </div>
 
         </div>
     </div>
+
     <!-- Side widget-->
     <div class="card mb-4 shadow">
         <div class="card-header">Side Widget</div>
+        <div class="card-body">Feel free to customize these side widgets to include any content you desire. They are
+            user-friendly and utilize the Bootstrap 5 card component for a sleek and modern appearance!.</div>
+    </div>
+
+    <!-- Related Post -->
+    <div class="card mb-4 shadow">
+        <div class="card-header">Related Post</div>
         <div class="card-body">Feel free to customize these side widgets to include any content you desire. They are
             user-friendly and utilize the Bootstrap 5 card component for a sleek and modern appearance!.</div>
     </div>

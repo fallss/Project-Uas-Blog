@@ -1,24 +1,27 @@
 @extends('front.layout.template')
 
-@section('title', 'About Laravel Blog - IFHAL FAIZI')
+@section('title', 'Contact Laravel Blog - IFHAL FAIZI')
 
 @section('content')
     <!-- Page content-->
     <div class="container">
         <div class="row">
             <!-- Blog entries-->
-            <div class="col-lg-8" data-aos="zoom-out">
+            <div class="col-lg-8" data-aos="zoom-in">
 
                 <!-- Featured blog post-->
                 <div class="card mb-4 shadow">
-                    <a href="{{ asset('front/img/laravel.png') }}">
-                        <img class="card-img-top featured-img " src="{{ asset('front/img/laravel.png') }}"
-                            alt="About Laravel Blog" />
-                    </a>
+                    <div class="text-center">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666426976269!2d106.8271528!3d-6.1753924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1720017644395!5m2!1sid!2sid"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
 
                     <div class="card-body">
                         <div class="small text-muted">{{ date('d/m/Y') }}</div>
-                        <h2 class="card-title">About Laravel Blog</h2>
+                        <h2 class="card-title">Contact Laravel Blog</h2>
                         <p class="card-text">
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quod nesciunt recusandae hic ad
@@ -26,19 +29,9 @@
                             id consequatur eveniet consequuntur molestias iusto.
                         </p>
 
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde inventore nihil ipsa ut! Porro,
-                            nisi sit omnis modi perferendis quaerat excepturi corporis quam aperiam. Beatae soluta vel nulla
-                            laboriosam cupiditate.
-                        </p>
-
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur ex, soluta aperiam quaerat
-                            officia repudiandae libero! Maiores fugiat vero, illum sequi quae iure! Hic voluptatum
-                            asperiores amet odit deleniti. Fugiat.
-                        </p>
-
                         <ul>
+                            <li>Phone : +62895346184632</li>
+                            <li>Email : ifhalf21@gmail.com</li>
                             <li><a href="https://www.youtube.com/watch?v=2kM5u5xS_X4">Youtube</a></li>
                             <li><a href="https://www.instagram.com/fhzz_21/">Instagram</a></li>
                             <li><a href="https://github.com/fallss/project-UAS-Blog">Github</a></li>

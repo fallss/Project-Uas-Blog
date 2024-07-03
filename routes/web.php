@@ -9,8 +9,8 @@ use App\Http\Controllers\Back\ArticleController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\CategoryController; // Add this line
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
-use App\Http\Controllers\Front\CategoryController as FrontCategoryController; 
-
+use App\Http\Controllers\Front\CategoryController as FrontCategoryController;
+use App\Http\Controllers\Front\ContactController;
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
@@ -18,6 +18,7 @@ use App\Http\Controllers\Front\CategoryController as FrontCategoryController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
+Route::get('/contact', [ContactController::class, 'index']);
 
 Route::get('/p/{slug}', [FrontArticleController::class, 'show']);
 Route::get('/articles', [FrontArticleController::class, 'index']);

@@ -6,7 +6,7 @@
     <!-- Page content-->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8" data-aos="fade-up">
                 <div class="card mb-4 shadow">
                     <a href="{{ url('p/' . $article->slug) }}">
                         <img class="card-img-top single-img" src="{{ asset('storage/back/' . $article->img) }}"

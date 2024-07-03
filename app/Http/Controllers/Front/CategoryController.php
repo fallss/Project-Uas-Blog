@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Article;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -16,7 +14,6 @@ class CategoryController extends Controller
                 $q->where('slug', $slugCategory);
             })->latest()->paginate(9),
             'category' => $slugCategory,
-            'category_navbar' => Category::latest()->take(4)->get(),
 
         ]);
     }
