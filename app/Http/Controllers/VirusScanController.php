@@ -15,26 +15,26 @@ class VirusScanController extends Controller
     }
     public function scan(Request $request)
     {
-            $scanningProcess = new Process(['your-antivirus-command', 'arguments']);
-            $scanningProcess->run();
+        $scanningProcess = new Process(['your-antivirus-command', 'arguments']);
+        $scanningProcess->run();
 
-            $output = $scanningProcess->getOutput();
+        $output = $scanningProcess->getOutput();
 
-            $isInfected = strpos($output, 'Virus detected') !== false;
+        $isInfected = strpos($output, 'Virus detected') !== false;
 
-            if ($isInfected) {
-                echo "Virus detected, Clean Now!";
-            } else {
-                echo "Scanned completed, No virus detected";
-            }
-        }
-        public function clean(Request $request){
-            $process = new Process(['your-clean-command', 'arguments']);
-            $process->run();
-
-            if($process->isSuccessful()){
-                echo "Virus has been cleaned";
-            }
+        if ($isInfected) {
+            echo "Virus detected, Clean Now!";
+        } else {
+            echo "Scanned completed, No virus detected";
         }
     }
+    public function clean(Request $request){
+        $process = new Process(['your-clean-command', 'arguments']);
+        $process->run();
+
+        if($process->isSuccessful()){
+            echo "Virus has been cleaned";
+        }
+    }
+}
 
